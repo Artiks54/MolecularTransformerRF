@@ -1,5 +1,6 @@
 package com.ariks.MolecularRF.Block.RfMolecular;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
@@ -30,5 +31,6 @@ public class MolecularRecipe {
         return recipes;
     }
     public static void preInit() {
+        MolecularRecipe.addRecipe(new MolecularRecipe(new ItemStack(Items.IRON_INGOT), new ItemStack(Items.DIAMOND), 1_000_000));
     }
 }

@@ -1,4 +1,4 @@
-package com.ariks.MolecularRF.Block.RfMolecular;
+package com.ariks.MolecularRF.Block.RFMolecularDoubleInput;
 
 import com.ariks.MolecularRF.Block.Core.ExampleGuiContainer;
 import com.ariks.MolecularRF.Gui.BarComponent;
@@ -11,21 +11,22 @@ import java.awt.*;
 import java.text.NumberFormat;
 
 @SideOnly(Side.CLIENT)
-public class GuiRfMolecular extends ExampleGuiContainer {
-    private final TileRfMolecular tile;
+public class GuiRfMolecularDouble extends ExampleGuiContainer {
+    private final TileRfMolecularDoubleInput tile;
     public NumberFormat numberFormat = NumberFormat.getNumberInstance();
     private String ItemInput;
+    private String ItemInput2;
     private String ItemOutput;
     private String EnergyNeed;
     private String Collected;
     private String RfPerTick;
     private String Time,Recipe;
 
-    public GuiRfMolecular(InventoryPlayer inventory, TileRfMolecular tileEntity, EntityPlayer player) {
-        super(new ContainerRfMolecular(inventory, tileEntity, player));
+    public GuiRfMolecularDouble(InventoryPlayer inventory, TileRfMolecularDoubleInput tileEntity, EntityPlayer player) {
+        super(new ContainerRfMolecularDouble(inventory, tileEntity, player));
         this.tile = tileEntity;
-        setTexture("textures/gui/gui_molecular.png", 175, 167);
-        BarComponent barComponent = new BarComponent(this, 1, 7, 24, 0, 0, 14, 29, "textures/gui/gui_component.png");
+        setTexture("textures/gui/gui_molecular_double.png", 175, 167);
+        BarComponent barComponent = new BarComponent(this, 1, 17, 24, 15, 0, 14, 29, "textures/gui/gui_component.png");
         barComponent.setSideDirection("down");
         addBarComponent(barComponent);
     }
@@ -36,11 +37,14 @@ public class GuiRfMolecular extends ExampleGuiContainer {
     private void getRecipe() {
         int RecipeID = tile.getValue(1);
         if (RecipeID >= 0) {
-            int ic = MolecularRecipe.getRecipes().get(RecipeID).getInput().getCount();
-            int io = MolecularRecipe.getRecipes().get(RecipeID).getRecipeOutput().getCount();
-            String ni = MolecularRecipe.getRecipes().get(RecipeID).getInput().getDisplayName();
-            String no = MolecularRecipe.getRecipes().get(RecipeID).getRecipeOutput().getDisplayName();
+            int ic = MolecularRecipeDoubleInput.getRecipes().get(RecipeID).getInput1().getCount();
+            int ic2 = MolecularRecipeDoubleInput.getRecipes().get(RecipeID).getInput2().getCount();
+            int io = MolecularRecipeDoubleInput.getRecipes().get(RecipeID).getRecipeOutput().getCount();
+            String ni = MolecularRecipeDoubleInput.getRecipes().get(RecipeID).getInput1().getDisplayName();
+            String ni2 = MolecularRecipeDoubleInput.getRecipes().get(RecipeID).getInput2().getDisplayName();
+            String no = MolecularRecipeDoubleInput.getRecipes().get(RecipeID).getRecipeOutput().getDisplayName();
             ItemInput = (ni + " *" + ic);
+            ItemInput2 = (ni2 + " *" + ic2);
             ItemOutput = (no + " *" + io);
             EnergyNeed = (LS.StrEnergyRecipe + " " + EnergyFormat.formatNumber(tile.energyRequired));
             Collected = (LS.StrEnergy + " " + EnergyFormat.formatNumber(tile.energyCollected));
@@ -60,6 +64,7 @@ public class GuiRfMolecular extends ExampleGuiContainer {
         } else {
             Recipe = LS.StrRecipeOff;
             ItemInput = "";
+            ItemInput2 = "";
             ItemOutput = "";
             EnergyNeed = "";
             Collected = "";
@@ -71,14 +76,15 @@ public class GuiRfMolecular extends ExampleGuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        int xOffset = 35;
+        int xOffset = 55;
         int yOffset = 5;
         this.fontRenderer.drawStringWithShadow(Recipe, xOffset, yOffset, Color.WHITE.getRGB());
         this.fontRenderer.drawStringWithShadow(ItemInput, xOffset, yOffset+10, Color.WHITE.getRGB());
-        this.fontRenderer.drawStringWithShadow(ItemOutput, xOffset, yOffset + 20, Color.WHITE.getRGB());
-        this.fontRenderer.drawStringWithShadow(EnergyNeed, xOffset, yOffset + 30, Color.YELLOW.getRGB());
-        this.fontRenderer.drawStringWithShadow(Collected, xOffset, yOffset + 40, Color.YELLOW.getRGB());
-        this.fontRenderer.drawStringWithShadow(RfPerTick, xOffset, yOffset + 50, Color.YELLOW.getRGB());
-        this.fontRenderer.drawStringWithShadow(Time, xOffset, yOffset + 60, Color.YELLOW.getRGB());
+        this.fontRenderer.drawStringWithShadow(ItemInput2, xOffset, yOffset+20, Color.WHITE.getRGB());
+        this.fontRenderer.drawStringWithShadow(ItemOutput, xOffset, yOffset + 30, Color.WHITE.getRGB());
+        this.fontRenderer.drawStringWithShadow(EnergyNeed, xOffset, yOffset + 40, Color.YELLOW.getRGB());
+        this.fontRenderer.drawStringWithShadow(Collected, xOffset, yOffset + 50, Color.YELLOW.getRGB());
+        this.fontRenderer.drawStringWithShadow(RfPerTick, xOffset, yOffset + 60, Color.YELLOW.getRGB());
+        this.fontRenderer.drawStringWithShadow(Time, xOffset, yOffset + 70, Color.YELLOW.getRGB());
     }
 }

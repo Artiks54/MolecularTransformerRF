@@ -1,5 +1,8 @@
 package com.ariks.MolecularRF.Register;
 
+import com.ariks.MolecularRF.Block.RFMolecularDoubleInput.ContainerRfMolecularDouble;
+import com.ariks.MolecularRF.Block.RFMolecularDoubleInput.GuiRfMolecularDouble;
+import com.ariks.MolecularRF.Block.RFMolecularDoubleInput.TileRfMolecularDoubleInput;
 import com.ariks.MolecularRF.Block.RfMolecular.ContainerRfMolecular;
 import com.ariks.MolecularRF.Block.RfMolecular.GuiRfMolecular;
 import com.ariks.MolecularRF.Block.RfMolecular.TileRfMolecular;
@@ -12,11 +15,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class RegistryGui implements IGuiHandler {
     public static final int GUI_RF_MOLECULAR = 0;
+    public static final int GUI_RF_MOLECULAR_DOUBLE_INPUT = 1;
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == GUI_RF_MOLECULAR) {
             return new ContainerRfMolecular(player.inventory, (TileRfMolecular) world.getTileEntity(new BlockPos(x, y, z)),player);
+        }
+        if (ID == GUI_RF_MOLECULAR_DOUBLE_INPUT) {
+            return new ContainerRfMolecularDouble(player.inventory, (TileRfMolecularDoubleInput) world.getTileEntity(new BlockPos(x, y, z)),player);
         }
         return null;
     }
@@ -25,6 +32,9 @@ public class RegistryGui implements IGuiHandler {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == GUI_RF_MOLECULAR) {
             return new GuiRfMolecular(player.inventory, (TileRfMolecular) world.getTileEntity(new BlockPos(x, y, z)),player);
+        }
+        if (ID == GUI_RF_MOLECULAR_DOUBLE_INPUT) {
+            return new GuiRfMolecularDouble(player.inventory, (TileRfMolecularDoubleInput) world.getTileEntity(new BlockPos(x, y, z)),player);
         }
         return null;
     }

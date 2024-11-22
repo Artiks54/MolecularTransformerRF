@@ -1,6 +1,6 @@
 package com.ariks.MolecularRF.Register;
 
-import com.ariks.MolecularRF.Block.RfMolecular.BlockMolecularRf;
+import com.ariks.MolecularRF.Block.Core.BlockMolecularRf;
 import com.ariks.MolecularRF.MolecularRF;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -17,7 +17,8 @@ import java.util.Objects;
 
 public class RegistryBlock {
     public static final String modid = MolecularRF.MOD_ID + "_";
-    public static Block RF_Molecular = new BlockMolecularRf(modid+"molecular_rf");
+    public static Block RF_Molecular = new BlockMolecularRf(modid+"molecular_rf",1);
+    public static Block RF_Molecular_Double = new BlockMolecularRf(modid+"molecular_rf_double_input",2);
     public static final List<Block> BLOCKS = new ArrayList<>();
     static {
         Field[] fields = RegistryBlock.class.getDeclaredFields();

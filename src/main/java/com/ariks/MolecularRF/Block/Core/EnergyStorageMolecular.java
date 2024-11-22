@@ -1,4 +1,4 @@
-package com.ariks.MolecularRF.Block.RfMolecular;
+package com.ariks.MolecularRF.Block.Core;
 
 import net.minecraftforge.energy.IEnergyStorage;
 

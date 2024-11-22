@@ -1,0 +1,16 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "mrf:molecular_rf_double_input",
+    "textures": {
+      "0": "mrf:blocks/molecular_rf_double_input",
+      "particle":  "mrf:blocks/molecular_rf_double_input"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "destroyed": [{}]
+  }
+}

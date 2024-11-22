@@ -1,4 +1,4 @@
-package com.ariks.MolecularRF.Block.RfMolecular;
+package com.ariks.MolecularRF.Block.RFMolecularDoubleInput;
 
 import com.ariks.MolecularRF.Block.Core.TileExampleInventory;
 import com.ariks.MolecularRF.Block.Core.EnergyStorageMolecular;
@@ -12,36 +12,53 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
-public class TileRfMolecular extends TileExampleInventory implements ITickable {
+public class TileRfMolecularDoubleInput extends TileExampleInventory implements ITickable {
     private final EnergyStorageMolecular storage;
     private int currentRecipeID = -1;
     public long energyReceived;
     public long energyRequired;
     public long energyCollected;
     public boolean work;
-    public TileRfMolecular() {
-        super(2);
-        this.setSlotsForInsert(0);
-        this.setSlotsForExtract(1);
+    public TileRfMolecularDoubleInput() {
+        super(3);
+        this.setSlotsForInsert(0,1);
+        this.setSlotsForExtract(2);
         this.storage = new EnergyStorageMolecular(Integer.MAX_VALUE,0,Integer.MAX_VALUE);
     }
-    private ArrayList<MolecularRecipe> currentRecipe() {
-        return MolecularRecipe.getRecipes();
+    private ArrayList<MolecularRecipeDoubleInput> currentRecipe() {
+        return MolecularRecipeDoubleInput.getRecipes();
     }
     public void findRecipe() {
         if (currentRecipeID < 0) {
-            ItemStack inputStack = getStackInSlot(0);
-            ItemStack outputStack = getStackInSlot(1);
-            if (!inputStack.isEmpty()) {
+            ItemStack inputStack1 = getStackInSlot(0);
+            ItemStack inputStack2 = getStackInSlot(1);
+            ItemStack outputStack = getStackInSlot(2);
+            if (!inputStack1.isEmpty() && !inputStack2.isEmpty()) {
                 for (int i = 0; i < currentRecipe().size(); i++) {
-                    MolecularRecipe recipe = currentRecipe().get(i);
-                    if (recipe.getInput().isItemEqual(inputStack) && ItemStack.areItemStackTagsEqual(recipe.getInput(), inputStack)) {
-                        if (inputStack.getCount() >= recipe.getInput().getCount()) {
+                    MolecularRecipeDoubleInput recipe = currentRecipe().get(i);
+                    if (recipe.getInput1().isItemEqual(inputStack1) && ItemStack.areItemStackTagsEqual(recipe.getInput1(), inputStack1) &&
+                            recipe.getInput2().isItemEqual(inputStack2) && ItemStack.areItemStackTagsEqual(recipe.getInput2(), inputStack2)) {
+                        if (inputStack1.getCount() >= recipe.getInput1().getCount() && inputStack2.getCount() >= recipe.getInput2().getCount()) {
                             if (outputStack.isEmpty() || (outputStack.isItemEqual(recipe.getRecipeOutput()) && ItemStack.areItemStackTagsEqual(outputStack, recipe.getRecipeOutput()))) {
                                 currentRecipeID = i;
                                 work = true;
                                 energyRequired = currentRecipe().get(currentRecipeID).getEnergy();
-                                decrStackSize(0, recipe.getInput().getCount());
+                                decrStackSize(0, recipe.getInput1().getCount());
+                                decrStackSize(1, recipe.getInput2().getCount());
+                                this.UpdateTile();
+                                return;
+                            }
+                        }
+                    }
+                    if (recipe.getInput1().isItemEqual(inputStack2) && ItemStack.areItemStackTagsEqual(recipe.getInput1(), inputStack2) &&
+                            recipe.getInput2().isItemEqual(inputStack1) && ItemStack.areItemStackTagsEqual(recipe.getInput2(), inputStack1)) {
+                        if (inputStack2.getCount() >= recipe.getInput1().getCount() && inputStack1.getCount() >= recipe.getInput2().getCount()) {
+                            if (outputStack.isEmpty() || (outputStack.isItemEqual(recipe.getRecipeOutput()) && ItemStack.areItemStackTagsEqual(outputStack, recipe.getRecipeOutput()))) {
+                                currentRecipeID = i;
+                                work = true;
+                                energyRequired = currentRecipe().get(currentRecipeID).getEnergy();
+                                decrStackSize(0, recipe.getInput2().getCount());
+                                decrStackSize(1, recipe.getInput1().getCount());
                                 this.UpdateTile();
                                 return;
                             }
@@ -73,7 +90,7 @@ public class TileRfMolecular extends TileExampleInventory implements ITickable {
     }
     private boolean canOutputRecipeResult() {
         ItemStack outputStack = currentRecipe().get(currentRecipeID).getRecipeOutput();
-        ItemStack currentOutputStack = getStackInSlot(1);
+        ItemStack currentOutputStack = getStackInSlot(2);
         if (currentOutputStack.isEmpty()) {
             return true;
         } else if (currentOutputStack.isItemEqual(outputStack) && ItemStack.areItemStackTagsEqual(currentOutputStack, outputStack)) {
@@ -88,15 +105,14 @@ public class TileRfMolecular extends TileExampleInventory implements ITickable {
     private void RecipeOut() {
         if (energyCollected >= energyRequired) {
             ItemStack outputStack = currentRecipe().get(currentRecipeID).getRecipeOutput();
-            if (getStackInSlot(1).isEmpty()) {
-                setInventorySlotContents(1, outputStack);
+            if (getStackInSlot(2).isEmpty()) {
+                setInventorySlotContents(2, outputStack);
             } else {
-                getStackInSlot(1).grow(outputStack.getCount());
+                getStackInSlot(2).grow(outputStack.getCount());
             }
             this.Reset();
         }
     }
-
     @Override
     public void update() {
         if (!world.isRemote) {
@@ -150,6 +166,6 @@ public class TileRfMolecular extends TileExampleInventory implements ITickable {
     }
     @Override
     public String getGuiID() {
-        return String.valueOf(RegistryGui.GUI_RF_MOLECULAR);
+        return String.valueOf(RegistryGui.GUI_RF_MOLECULAR_DOUBLE_INPUT);
     }
 }

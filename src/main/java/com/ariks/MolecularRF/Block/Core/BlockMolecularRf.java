@@ -1,6 +1,7 @@
-package com.ariks.MolecularRF.Block.RfMolecular;
+package com.ariks.MolecularRF.Block.Core;
 
-import com.ariks.MolecularRF.Block.Core.BlockCustomModelTile;
+import com.ariks.MolecularRF.Block.RFMolecularDoubleInput.TileRfMolecularDoubleInput;
+import com.ariks.MolecularRF.Block.RfMolecular.TileRfMolecular;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
@@ -11,13 +12,21 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BlockMolecularRf extends BlockCustomModelTile {
-    public BlockMolecularRf(String name) {
+    private final int id;
+    public BlockMolecularRf(String name,int id) {
         super(name);
+        this.id = id;
     }
     @Nullable
     @Override
     public TileEntity createTileEntity(@NotNull World world, @NotNull IBlockState state) {
-        return new TileRfMolecular();
+        if(id == 1) {
+            return new TileRfMolecular();
+        }
+        if(id == 2) {
+            return new TileRfMolecularDoubleInput();
+        }
+        return null;
     }
     @Override
     public void breakBlock(World worldIn, @NotNull BlockPos pos, @NotNull IBlockState state) {
