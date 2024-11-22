@@ -1,0 +1,187 @@
+buildscript {
+    repositories {
+        maven {
+            name = ":forge"
+            url = 'https://files.minecraftforge.net/maven'
+        }
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.+', changing: true
+        classpath "gradle.plugin.net.kyori:blossom:1.1.0"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: "net.kyori.blossom"
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+version = modVersion
+group = modGroup
+archivesBaseName = modBaseName
+
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+blossom {
+    replaceToken '%VERSION%', modVersion
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java"]
+        }
+        resources {
+            srcDirs = ["src/main/resources"]
+        }
+    }
+}
+minecraft {
+    mappings channel: "snapshot", version: mcp_version
+    runs {
+        client {
+            workingDirectory project.file('run')
+            accessTransformer = file('src/main/resources/tc_at.cfg')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+        server {
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+        data {
+            property 'forge.logging.console.level', 'debug'
+            workingDirectory project.file('run')
+            args '--mod', 'ssp', '--all',
+                    '--existing', '"' + file('src/main/resources/') + '"',
+                    '--existing', '"' + file('src/generated/resources/') + '"',
+                    '--output', '"' + file('src/generated/resources/') + '"'
+        }
+    }
+}
+repositories {
+    maven {
+        url "http://maven.cil.li"
+    }
+    maven {
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    maven {
+        name = "Progwml6 maven"
+        url = "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        name = "ModMaven"
+        url = "modmaven.k-4u.nl"
+    }
+}
+
+dependencies {
+    minecraft([
+            group  : "net.minecraftforge",
+            name   : "forge",
+            version: "${minecraft_version}-${forge_version}"
+    ])
+    implementation 'org.jetbrains:annotations:23.0.0'
+    compileOnly "curse.maven:projecte-226410:2702991"
+    runtimeOnly "curse.maven:projecte-226410:2702991"
+    compileOnly "curse.maven:the-one-probe-245211:2667280"
+    runtimeOnly "curse.maven:the-one-probe-245211:2667280"
+    compileOnly "curse.maven:top-addons-247111:2887479"
+    runtimeOnly "curse.maven:top-addons-247111:2887479"
+    compileOnly "curse.maven:jei-238222:5101347"
+    runtimeOnly "curse.maven:jei-238222:5101347"
+    compileOnly "curse.maven:ae2-extended-life-570458:5411078"
+    runtimeOnly "curse.maven:ae2-extended-life-570458:5411078"
+    compileOnly "curse.maven:mekanism-268560:2835175"
+    runtimeOnly "curse.maven:mekanism-268560:2835175"
+    compileOnly "curse.maven:crafttweaker-239197:5486112"
+    runtimeOnly "curse.maven:crafttweaker-239197:5486112"
+    runtimeOnly fileTree('lib')
+    compileOnly fileTree('lib')
+    compileOnly fileTree('libs')
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft_version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include "mcmod.info"
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude "mcmod.info"
+    }
+    rename '(.+_at.cfg)', 'META-INF/$1'
+}
+def commonManifest = {
+    attributes 'FMLAT': 'tc_at.cfg'
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": project.name,
+                "Specification-Vendor": "Ariks54",
+                "Specification-Version": "1",
+                "Implementation-Title": project.name,
+                "Implementation-Version": project.version,
+                "Implementation-Vendor" :"Ariks54",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "Git-Commit-Hash": getGitHash()
+        ])
+    }
+    from 'LICENSE'
+    manifest commonManifest
+    from sourceSets.main.output.classesDirs
+    from sourceSets.main.output.resourcesDir
+}
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    options.incremental = true
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+jar.archiveFileName = "${project.archivesBaseName}-${project.version}.jar"
+
+jar.finalizedBy('reobfJar')
+defaultTasks 'build'
+
+static def getGitHash() {
+    try {
+        def process = 'git rev-parse --short HEAD'.execute()
+        process.waitFor()
+        return (process.exitValue() ? 'unknown' : process.text.trim())
+    }catch(IOException ignored){
+        return 'unknown'
+    }
+}
+
+sourceSets { main { output.resourcesDir = output.classesDirs[0] } }
+task devJar(type: Jar) {
+    classifier = 'dev'
+    from sourceSets.main.output
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives devJar
+    archives sourcesJar
+}
