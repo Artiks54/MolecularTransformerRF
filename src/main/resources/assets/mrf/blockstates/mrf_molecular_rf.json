@@ -1,0 +1,16 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "mrf:molecular_rf",
+    "textures": {
+      "0": "mrf:blocks/molecular_rf",
+      "particle":  "mrf:blocks/molecular_rf"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "destroyed": [{}]
+  }
+}
