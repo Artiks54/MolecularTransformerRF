@@ -6,4 +6,5 @@ gui.text.tile_rf_molecular.recipe=§aInput | Output
 gui.text.tile_rf_molecular.recipe.off=§4Recipe not found
 gui.text.tile_rf_molecular.rf.tick=RF Tick:
 
-tile.mrf_molecular_rf.name=§4RF Molecular transformer
+tile.mrf_molecular_rf.name=§4Molecular transformer
+tile.mrf_molecular_rf_double_input.name=§aRF Double molecular transformer

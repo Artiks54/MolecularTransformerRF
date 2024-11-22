@@ -78,13 +78,13 @@ public class GuiRfMolecularDouble extends ExampleGuiContainer {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         int xOffset = 55;
         int yOffset = 5;
-        this.fontRenderer.drawStringWithShadow(Recipe, xOffset, yOffset, Color.WHITE.getRGB());
-        this.fontRenderer.drawStringWithShadow(ItemInput, xOffset, yOffset+10, Color.WHITE.getRGB());
-        this.fontRenderer.drawStringWithShadow(ItemInput2, xOffset, yOffset+20, Color.WHITE.getRGB());
-        this.fontRenderer.drawStringWithShadow(ItemOutput, xOffset, yOffset + 30, Color.WHITE.getRGB());
-        this.fontRenderer.drawStringWithShadow(EnergyNeed, xOffset, yOffset + 40, Color.YELLOW.getRGB());
-        this.fontRenderer.drawStringWithShadow(Collected, xOffset, yOffset + 50, Color.YELLOW.getRGB());
-        this.fontRenderer.drawStringWithShadow(RfPerTick, xOffset, yOffset + 60, Color.YELLOW.getRGB());
-        this.fontRenderer.drawStringWithShadow(Time, xOffset, yOffset + 70, Color.YELLOW.getRGB());
+        this.fontRenderer.drawStringWithShadow(Recipe, xOffset, yOffset, Color.GREEN.getRGB());
+        this.fontRenderer.drawStringWithShadow(ItemInput, xOffset, yOffset+10, Color.GREEN.getRGB());
+        this.fontRenderer.drawStringWithShadow(ItemInput2, xOffset, yOffset+20, Color.GREEN.getRGB());
+        this.fontRenderer.drawStringWithShadow(ItemOutput, xOffset, yOffset + 30, Color.GREEN.getRGB());
+        this.fontRenderer.drawStringWithShadow(EnergyNeed, xOffset, yOffset + 40, Color.GREEN.getRGB());
+        this.fontRenderer.drawStringWithShadow(Collected, xOffset, yOffset + 50, Color.GREEN.getRGB());
+        this.fontRenderer.drawStringWithShadow(RfPerTick, xOffset, yOffset + 60, Color.GREEN.getRGB());
+        this.fontRenderer.drawStringWithShadow(Time, xOffset, yOffset + 70, Color.GREEN.getRGB());
     }
 }
