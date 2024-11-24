@@ -1,6 +1,7 @@
 package com.ariks.MolecularRF.Block.Core;
 
 import com.ariks.MolecularRF.Block.RFMolecularDoubleInput.TileRfMolecularDoubleInput;
+import com.ariks.MolecularRF.Block.RFMolecularOutput.TileRfMolecularOutput;
 import com.ariks.MolecularRF.Block.RfMolecular.TileRfMolecular;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.inventory.IInventory;
@@ -25,6 +26,9 @@ public class BlockMolecularRf extends BlockCustomModelTile {
         }
         if(id == 2) {
             return new TileRfMolecularDoubleInput();
+        }
+        if(id == 3) {
+            return new TileRfMolecularOutput();
         }
         return null;
     }

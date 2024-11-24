@@ -1,35 +1,27 @@
-package com.ariks.MolecularRF.Block.RfMolecular;
+package com.ariks.MolecularRF.Block.RFMolecularOutput;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class TileRfMolecularRenderer extends TileEntitySpecialRenderer<TileRfMolecular> {
+public class TileRfMolecularRendererOutput extends TileEntitySpecialRenderer<TileRfMolecularOutput> {
 
     @Override
-    public void render(@NotNull TileRfMolecular tile, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        if (tile.hasWorld() && tile.getValue(1) >= 0) {
+    public void render(@NotNull TileRfMolecularOutput tile, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+        if (tile.hasWorld() && tile.getValue(1) >= 0 ) {
             GlStateManager.pushMatrix();
             GlStateManager.depthMask(false);
             GlStateManager.enableBlend();
             GlStateManager.disableTexture2D();
             GlStateManager.disableLighting();
             GlStateManager.disableCull();
-            float min = 0.02F;
-            float max = 0.15F;
-            float progressPercentage = (int) ((tile.energyCollected * 100) / tile.energyRequired);
-            float currentValue = max + (min - max) * (progressPercentage / 100.0F);
-            GlStateManager.translate(x + 0.5, y + 0.52, z + 0.5);
-            GlStateManager.scale(currentValue,currentValue,currentValue);
-            GlStateManager.color(0.8F, 0.0F, 0.0F, 0.5F);
+            GlStateManager.translate(x + 0.5, y + 0.5, z + 0.5);
+            GlStateManager.scale(0.15, 0.15, 0.15);
+            GlStateManager.color(0.0F, 0.0F, 1.0F, 1.0F);
             drawSphere();
             GlStateManager.enableCull();
             GlStateManager.enableLighting();

@@ -1,7 +1,8 @@
-import mods.mrf.TileRfMolecular
+import mods.mrf.molecular;
 
-TileRfMolecular.addRecipe(input, output, energy);
-
+molecular.addRecipeMolecular(input, output, energy);
+molecular.addRecipeMolecularInput(input1, input2, output, energy);
+molecular.addRecipeMolecularOutput(input, output1, output2, energy);
 
 //EXAMPLE:
 //TileRfMolecular.addRecipe(<minecraft:stone>*1, <minecraft:diamond_block>*2, 1000000000);

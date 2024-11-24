@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LHL",
+    "LTL",
+    "HBH"
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "B": {
+      "item": "minecraft:beacon"
+    },
+    "L": {
+      "item": "minecraft:lapis_block"
+    },
+    "T": {
+      "item": "mrf:mrf_molecular_rf"
+    }
+  },
+  "result": {
+    "item": "mrf:mrf_molecular_rf_output",
+    "count": 1
+  }
+}

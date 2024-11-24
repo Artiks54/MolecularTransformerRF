@@ -2,9 +2,8 @@
 
 gui.text.tile_rf_molecular.energy=Energy:
 gui.text.tile_rf_molecular.energy.recipe=Required energy:
-gui.text.tile_rf_molecular.recipe=§aInput | Output
-gui.text.tile_rf_molecular.recipe.off=§4Recipe not found
 gui.text.tile_rf_molecular.rf.tick=RF Tick:
 
 tile.mrf_molecular_rf.name=§4Molecular transformer
-tile.mrf_molecular_rf_double_input.name=§aRF Double molecular transformer
+tile.mrf_molecular_rf_double_input.name=§aDouble molecular transformer
+tile.mrf_molecular_rf_output.name=§1Double molecular transformer

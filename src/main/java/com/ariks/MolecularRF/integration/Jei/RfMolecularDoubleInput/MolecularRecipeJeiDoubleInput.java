@@ -37,7 +37,8 @@ public class MolecularRecipeJeiDoubleInput implements IRecipeWrapper {
     @Override
     public void drawInfo(@NotNull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
         IRecipeWrapper.super.drawInfo(minecraft, recipeWidth, recipeHeight, mouseX, mouseY);
-        String energyText =  LS.StrEnergyRecipe +" "+ EnergyFormat.formatNumber(recipe.getEnergy());
-        minecraft.fontRenderer.drawString(energyText, 55, 5, Color.WHITE.getRGB());
+        String energyText = EnergyFormat.formatNumber(recipe.getEnergy());
+        minecraft.fontRenderer.drawString(LS.StrEnergyRecipe, 55, 5, Color.WHITE.getRGB());
+        minecraft.fontRenderer.drawString(energyText, 55, 15, Color.WHITE.getRGB());
     }
 }

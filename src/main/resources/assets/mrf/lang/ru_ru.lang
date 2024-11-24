@@ -2,9 +2,8 @@
 
 gui.text.tile_rf_molecular.energy=Энергия:
 gui.text.tile_rf_molecular.energy.recipe=Необходимая энергия:
-gui.text.tile_rf_molecular.recipe=§aВход | Выход
-gui.text.tile_rf_molecular.recipe.off=§4Рецепт не найден
 gui.text.tile_rf_molecular.rf.tick=RF Тик:
 
 tile.mrf_molecular_rf.name=§4Молекулярный преобразователь
 tile.mrf_molecular_rf_double_input.name=§aДвойной молекулярный преобразователь
+tile.mrf_molecular_rf_output.name=§1Двойной молекулярный преобразователь

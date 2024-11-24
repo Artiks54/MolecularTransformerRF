@@ -1,9 +1,12 @@
 package com.ariks.MolecularRF.integration.Jei;
 
 import com.ariks.MolecularRF.Block.RFMolecularDoubleInput.MolecularRecipeDoubleInput;
+import com.ariks.MolecularRF.Block.RFMolecularOutput.MolecularRecipeOutput;
 import com.ariks.MolecularRF.Block.RfMolecular.MolecularRecipe;
 import com.ariks.MolecularRF.MolecularRF;
 import com.ariks.MolecularRF.Register.RegistryBlock;
+import com.ariks.MolecularRF.integration.Jei.RFMolecularOutput.MolecularRfRecipeCategoryOutput;
+import com.ariks.MolecularRF.integration.Jei.RFMolecularOutput.MolecularRfWrapperOutput;
 import com.ariks.MolecularRF.integration.Jei.RfMolecular.MolecularRfRecipeCategory;
 import com.ariks.MolecularRF.integration.Jei.RfMolecular.MolecularRfWrapper;
 import com.ariks.MolecularRF.integration.Jei.RfMolecularDoubleInput.MolecularRfRecipeCategoryDoubleInput;
@@ -19,6 +22,7 @@ public class AddonJei implements IModPlugin {
     public void register(IModRegistry registry) {
         String idMolecular = MolecularRF.MOD_ID + "_molecular";
         String idMolecular_Double_input = MolecularRF.MOD_ID + "_molecular_double_input";
+        String idMolecular_Output = MolecularRF.MOD_ID + "_molecular_output";
 
         registry.handleRecipes(MolecularRecipe.class, new MolecularRfWrapper(), idMolecular);
         registry.addRecipes(MolecularRecipe.getRecipes(), idMolecular);
@@ -27,10 +31,15 @@ public class AddonJei implements IModPlugin {
         registry.handleRecipes(MolecularRecipeDoubleInput.class, new MolecularRfWrapperDoubleInput(), idMolecular_Double_input);
         registry.addRecipes(MolecularRecipeDoubleInput.getRecipes(), idMolecular_Double_input);
         registry.addRecipeCatalyst(new ItemStack(RegistryBlock.RF_Molecular_Double), idMolecular_Double_input);
+
+        registry.handleRecipes(MolecularRecipeOutput.class, new MolecularRfWrapperOutput(), idMolecular_Output);
+        registry.addRecipes(MolecularRecipeOutput.getRecipes(), idMolecular_Output);
+        registry.addRecipeCatalyst(new ItemStack(RegistryBlock.RF_Molecular_Output), idMolecular_Output);
     }
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
         registry.addRecipeCategories(new MolecularRfRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new MolecularRfRecipeCategoryDoubleInput(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new MolecularRfRecipeCategoryOutput(registry.getJeiHelpers().getGuiHelper()));
     }
 }

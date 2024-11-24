@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "HBH",
+    "ETE",
+    "EHE"
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "B": {
+      "item": "minecraft:beacon"
+    },
+    "E": {
+      "item": "minecraft:emerald_block"
+    },
+    "T": {
+      "item": "mrf:mrf_molecular_rf"
+    }
+  },
+  "result": {
+    "item": "mrf:mrf_molecular_rf_double_input",
+    "count": 1
+  }
+}

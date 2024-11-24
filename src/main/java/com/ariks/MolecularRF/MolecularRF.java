@@ -1,11 +1,11 @@
 package com.ariks.MolecularRF;
 
+import com.ariks.MolecularRF.Register.RegistryBlock;
 import com.ariks.MolecularRF.network.CommonProxy;
 import org.apache.logging.log4j.Logger;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = MolecularRF.MOD_ID, name = MolecularRF.MOD_NAME, useMetadata = true, acceptedMinecraftVersions = "[1.12]", version = MolecularRF.VERSION)
@@ -23,9 +23,6 @@ public class MolecularRF {
 	}
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		proxy.Init();
-	}
-	@Mod.EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
+		RegistryBlock.registerRender();
 	}
 }
