@@ -1,5 +1,7 @@
 //Localized by artiks4471
 
+itemGroup.mrf=Molecular Transformer RF
+
 gui.text.tile_rf_molecular.energy=Энергия:
 gui.text.tile_rf_molecular.energy.recipe=Необходимая энергия:
 gui.text.tile_rf_molecular.rf.tick=RF Тик:

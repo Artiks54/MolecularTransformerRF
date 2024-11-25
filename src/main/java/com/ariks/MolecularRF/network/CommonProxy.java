@@ -16,12 +16,14 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class CommonProxy {
 	public void preInit() {
 		RegistryBlock.preInit();
+		GameRegistry.registerTileEntity(TileRfMolecular.class, new ResourceLocation(MolecularRF.MOD_ID, "tile_tf_molecular"));
+		GameRegistry.registerTileEntity(TileRfMolecularDoubleInput.class, new ResourceLocation(MolecularRF.MOD_ID, "tile_rf_molecular_double"));
+		GameRegistry.registerTileEntity(TileRfMolecularOutput.class, new ResourceLocation(MolecularRF.MOD_ID, "tile_rf_molecular_output"));
 		MolecularRecipe.preInit();
 		MolecularRecipeDoubleInput.preInit();
 		MolecularRecipeOutput.preInit();
-		GameRegistry.registerTileEntity(TileRfMolecular.class, new ResourceLocation(MolecularRF.MOD_ID, "Tile_Rf_Molecular"));
-		GameRegistry.registerTileEntity(TileRfMolecularDoubleInput.class, new ResourceLocation(MolecularRF.MOD_ID, "Tile_Rf_Molecular_Double"));
-		GameRegistry.registerTileEntity(TileRfMolecularOutput.class, new ResourceLocation(MolecularRF.MOD_ID, "Tile_Rf_Molecular_Output"));
 		NetworkRegistry.INSTANCE.registerGuiHandler(MolecularRF.instance, new RegistryGui());
+	}
+	public void init(){
 	}
 }

@@ -1,6 +1,5 @@
 package com.ariks.MolecularRF.Block.RFMolecularDoubleInput;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
@@ -35,7 +34,12 @@ public class MolecularRecipeDoubleInput {
     public static ArrayList<MolecularRecipeDoubleInput> getRecipes() {
         return recipes;
     }
+    public boolean matches(ItemStack inputStack1, ItemStack inputStack2) {
+        return (input1.isItemEqual(inputStack1) && ItemStack.areItemStackTagsEqual(input1, inputStack1) &&
+                input2.isItemEqual(inputStack2) && ItemStack.areItemStackTagsEqual(input2, inputStack2)) ||
+                (input1.isItemEqual(inputStack2) && ItemStack.areItemStackTagsEqual(input1, inputStack2) &&
+                        input2.isItemEqual(inputStack1) && ItemStack.areItemStackTagsEqual(input2, inputStack1));
+    }
     public static void preInit() {
-        MolecularRecipeDoubleInput.addRecipe(new MolecularRecipeDoubleInput(new ItemStack(Items.IRON_INGOT), new ItemStack(Items.DIAMOND),new ItemStack(Items.NETHER_STAR), 10_000_000));
     }
 }

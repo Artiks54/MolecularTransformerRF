@@ -1,7 +1,10 @@
 package com.ariks.MolecularRF;
 
-import com.ariks.MolecularRF.Register.RegistryBlock;
 import com.ariks.MolecularRF.network.CommonProxy;
+import com.ariks.MolecularRF.util.Tab;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import org.apache.logging.log4j.Logger;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -23,6 +26,8 @@ public class MolecularRF {
 	}
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		RegistryBlock.registerRender();
+		proxy.init();
 	}
+	public static final SoundEvent SOUND_MOLECULAR = new SoundEvent(new ResourceLocation(MOD_ID, "molecular")).setRegistryName("molecular");
+	public static CreativeTabs molecularTransformerTab = new Tab("mrf");
 }

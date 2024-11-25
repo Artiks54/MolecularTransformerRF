@@ -1,0 +1,11 @@
+{
+  "molecular": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "mrf:molecular",
+        "stream": false
+      }
+    ]
+  }
+}

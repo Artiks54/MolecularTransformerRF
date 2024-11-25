@@ -1,6 +1,5 @@
 package com.ariks.MolecularRF.Block.RfMolecular;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
@@ -30,7 +29,10 @@ public class MolecularRecipe {
     public static ArrayList<MolecularRecipe> getRecipes() {
         return recipes;
     }
-    public static void preInit() {
-        MolecularRecipe.addRecipe(new MolecularRecipe(new ItemStack(Items.IRON_INGOT), new ItemStack(Items.DIAMOND), 1_000_000));
+    public boolean matches(ItemStack inputStack, ItemStack outputStack) {
+        return input.isItemEqual(inputStack) &&
+                ItemStack.areItemStackTagsEqual(input, inputStack) && inputStack.getCount() >= input.getCount() && (outputStack.isEmpty() || (outputStack.isItemEqual(output) && ItemStack.areItemStackTagsEqual(outputStack, output)));
+    }
+        public static void preInit() {
     }
 }

@@ -12,16 +12,18 @@ public class TileRfMolecularRendererDoubleInput extends TileEntitySpecialRendere
 
     @Override
     public void render(@NotNull TileRfMolecularDoubleInput tile, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        if (tile.hasWorld() && tile.getValue(1) >= 0 ) {
+        if (tile.hasWorld() && tile.getValue(1) >= 0) {
             GlStateManager.pushMatrix();
             GlStateManager.depthMask(false);
             GlStateManager.enableBlend();
             GlStateManager.disableTexture2D();
             GlStateManager.disableLighting();
             GlStateManager.disableCull();
-            GlStateManager.translate(x + 0.5, y + 0.5, z + 0.5);
-            GlStateManager.scale(0.15, 0.15, 0.15);
-            GlStateManager.color(0.0F, 1.0F, 0.0F, 1.0F);
+            float progressPercentage = (int) ((tile.energyCollected * 100) / tile.energyRequired);
+            float currentValue = 0.15F + (0.02F - 0.15F) * (progressPercentage / 100.0F);
+            GlStateManager.translate(x + 0.5, y + 0.52, z + 0.5);
+            GlStateManager.scale(currentValue,currentValue,currentValue);
+            GlStateManager.color(0.0F, 0.8F, 0.0F, 0.5F);
             drawSphere();
             GlStateManager.enableCull();
             GlStateManager.enableLighting();

@@ -3,6 +3,7 @@ package com.ariks.MolecularRF.Block.RFMolecularOutput;
 import com.ariks.MolecularRF.Block.Core.EnergyStorageMolecular;
 import com.ariks.MolecularRF.Block.Core.TileExampleInventory;
 import com.ariks.MolecularRF.Register.RegistryGui;
+import com.ariks.MolecularRF.util.PlaySound;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -19,6 +20,7 @@ public class TileRfMolecularOutput extends TileExampleInventory implements ITick
     public long energyRequired;
     public long energyCollected;
     public boolean work;
+    private final PlaySound sound = new PlaySound();
     public TileRfMolecularOutput() {
         super(3);
         this.setSlotsForInsert(0);
@@ -29,41 +31,36 @@ public class TileRfMolecularOutput extends TileExampleInventory implements ITick
         return MolecularRecipeOutput.getRecipes();
     }
     public void findRecipe() {
-        if (currentRecipeID < 0) {
-            ItemStack inputStack = getStackInSlot(0);
-            ItemStack outputStack1 = getStackInSlot(1);
-            ItemStack outputStack2 = getStackInSlot(2);
-            if (!inputStack.isEmpty()) {
-                for (int i = 0; i < currentRecipe().size(); i++) {
-                    MolecularRecipeOutput recipe = currentRecipe().get(i);
-                    if (recipe.getInput().isItemEqual(inputStack) && ItemStack.areItemStackTagsEqual(recipe.getInput(), inputStack)) {
-                        if (inputStack.getCount() >= recipe.getInput().getCount()) {
-                            if (outputStack1.isEmpty() || (outputStack1.isItemEqual(recipe.getRecipeOutput1()) && ItemStack.areItemStackTagsEqual(outputStack1, recipe.getRecipeOutput1()))) {
-                                if (outputStack2.isEmpty() || (outputStack2.isItemEqual(recipe.getRecipeOutput2()) && ItemStack.areItemStackTagsEqual(outputStack2, recipe.getRecipeOutput2()))) {
-                                    currentRecipeID = i;
-                                    work = true;
-                                    energyRequired = currentRecipe().get(currentRecipeID).getEnergy();
-                                    decrStackSize(0, recipe.getInput().getCount());
-                                    this.UpdateTile();
-                                    return;
-                                }
-                            }
-                        }
-                    }
+        if (currentRecipeID >= 0) return;
+        ItemStack inputStack = getStackInSlot(0);
+        ItemStack outputStack1 = getStackInSlot(1);
+        ItemStack outputStack2 = getStackInSlot(2);
+        if (inputStack.isEmpty()) return;
+        ArrayList<MolecularRecipeOutput> recipes = currentRecipe();
+        for (int i = 0; i < recipes.size(); i++) {
+            MolecularRecipeOutput recipe = recipes.get(i);
+            if (recipe.matches(inputStack)) {
+                if ((outputStack1.isEmpty() || (outputStack1.isItemEqual(recipe.getRecipeOutput1()) && ItemStack.areItemStackTagsEqual(outputStack1, recipe.getRecipeOutput1()))) &&
+                        (outputStack2.isEmpty() || (outputStack2.isItemEqual(recipe.getRecipeOutput2()) && ItemStack.areItemStackTagsEqual(outputStack2, recipe.getRecipeOutput2())))) {
+                    currentRecipeID = i;
+                    work = true;
+                    energyRequired = recipe.getEnergy();
+                    decrStackSize(0, recipe.getInput().getCount());
+                    this.UpdateTile();
+                    return;
                 }
             }
         }
     }
     private void Work() {
-        if (work && canOutputRecipeResult()) {
-            storage.setCanReceiveEnergy(true);
-            energyReceived = storage.getEnergyStored();
-            if (energyReceived > 0) {
-                storage.consumeEnergy((int) energyReceived);
-                energyCollected += energyReceived;
-                this.UpdateTile();
-                this.RecipeOut();
-            }
+        if (!work || !canOutputRecipeResult()) return;
+        storage.setCanReceiveEnergy(true);
+        energyReceived = storage.getEnergyStored();
+        if (energyReceived > 0) {
+            storage.consumeEnergy((int) energyReceived);
+            energyCollected += energyReceived;
+            this.UpdateTile();
+            this.RecipeOut();
         }
     }
     private void Reset() {
@@ -75,6 +72,7 @@ public class TileRfMolecularOutput extends TileExampleInventory implements ITick
         work = false;
     }
     private boolean canOutputRecipeResult() {
+        if (currentRecipeID < 0) return false;
         MolecularRecipeOutput recipe = currentRecipe().get(currentRecipeID);
         ItemStack outputStack1 = recipe.getRecipeOutput1();
         ItemStack outputStack2 = recipe.getRecipeOutput2();
@@ -96,25 +94,27 @@ public class TileRfMolecularOutput extends TileExampleInventory implements ITick
         return false;
     }
     private void RecipeOut() {
-        if (energyCollected >= energyRequired) {
-            MolecularRecipeOutput recipe = currentRecipe().get(currentRecipeID);
-            ItemStack outputStack1 = recipe.getRecipeOutput1();
-            ItemStack outputStack2 = recipe.getRecipeOutput2();
-            if (getStackInSlot(1).isEmpty()) {
-                setInventorySlotContents(1, outputStack1);
-            } else if (getStackInSlot(1).isItemEqual(outputStack1) && ItemStack.areItemStackTagsEqual(getStackInSlot(1), outputStack1)) {
-                getStackInSlot(1).grow(outputStack1.getCount());
-            }
-            if (getStackInSlot(2).isEmpty()) {
-                setInventorySlotContents(2, outputStack2);
-            } else if (getStackInSlot(2).isItemEqual(outputStack2) && ItemStack.areItemStackTagsEqual(getStackInSlot(2), outputStack2)) {
-                getStackInSlot(2).grow(outputStack2.getCount());
-            }
-            this.Reset();
+        if (energyCollected < energyRequired) return;
+        MolecularRecipeOutput recipe = currentRecipe().get(currentRecipeID);
+        ItemStack outputStack1 = recipe.getRecipeOutput1();
+        ItemStack outputStack2 = recipe.getRecipeOutput2();
+        ItemStack currentOutputStack1 = getStackInSlot(1);
+        ItemStack currentOutputStack2 = getStackInSlot(2);
+        if (currentOutputStack1.isEmpty()) {
+            setInventorySlotContents(1, outputStack1);
+        } else {
+            currentOutputStack1.grow(outputStack1.getCount());
         }
+        if (currentOutputStack2.isEmpty()) {
+            setInventorySlotContents(2, outputStack2);
+        } else {
+            currentOutputStack2.grow(outputStack2.getCount());
+        }
+        this.Reset();
     }
     @Override
     public void update() {
+        this.sound.play(world,pos,canOutputRecipeResult());
         if (!world.isRemote) {
             this.findRecipe();
             this.Work();

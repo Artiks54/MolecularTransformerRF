@@ -1,11 +1,7 @@
 package com.ariks.MolecularRF.Block.RfMolecular;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
@@ -23,10 +19,8 @@ public class TileRfMolecularRenderer extends TileEntitySpecialRenderer<TileRfMol
             GlStateManager.disableTexture2D();
             GlStateManager.disableLighting();
             GlStateManager.disableCull();
-            float min = 0.02F;
-            float max = 0.15F;
             float progressPercentage = (int) ((tile.energyCollected * 100) / tile.energyRequired);
-            float currentValue = max + (min - max) * (progressPercentage / 100.0F);
+            float currentValue = 0.15F + (0.02F - 0.15F) * (progressPercentage / 100.0F);
             GlStateManager.translate(x + 0.5, y + 0.52, z + 0.5);
             GlStateManager.scale(currentValue,currentValue,currentValue);
             GlStateManager.color(0.8F, 0.0F, 0.0F, 0.5F);

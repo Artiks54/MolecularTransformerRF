@@ -3,6 +3,7 @@ package com.ariks.MolecularRF.Block.Core;
 import com.ariks.MolecularRF.Block.RFMolecularDoubleInput.TileRfMolecularDoubleInput;
 import com.ariks.MolecularRF.Block.RFMolecularOutput.TileRfMolecularOutput;
 import com.ariks.MolecularRF.Block.RfMolecular.TileRfMolecular;
+import com.ariks.MolecularRF.MolecularRF;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
@@ -14,9 +15,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class BlockMolecularRf extends BlockCustomModelTile {
     private final int id;
-    public BlockMolecularRf(String name,int id) {
+    public BlockMolecularRf(String name, int id) {
         super(name);
         this.id = id;
+        this.setCreativeTab(MolecularRF.molecularTransformerTab);
     }
     @Nullable
     @Override

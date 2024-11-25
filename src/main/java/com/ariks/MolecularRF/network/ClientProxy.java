@@ -6,6 +6,7 @@ import com.ariks.MolecularRF.Block.RFMolecularOutput.TileRfMolecularOutput;
 import com.ariks.MolecularRF.Block.RFMolecularOutput.TileRfMolecularRendererOutput;
 import com.ariks.MolecularRF.Block.RfMolecular.TileRfMolecular;
 import com.ariks.MolecularRF.Block.RfMolecular.TileRfMolecularRenderer;
+import com.ariks.MolecularRF.Register.RegistryBlock;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class ClientProxy extends CommonProxy {
@@ -15,5 +16,9 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRfMolecular.class, new TileRfMolecularRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRfMolecularDoubleInput.class, new TileRfMolecularRendererDoubleInput());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRfMolecularOutput.class, new TileRfMolecularRendererOutput());
+	}
+	@Override
+	public void init(){
+		RegistryBlock.registerRender();
 	}
 }
