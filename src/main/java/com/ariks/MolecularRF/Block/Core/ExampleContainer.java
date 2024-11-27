@@ -24,14 +24,14 @@ public class ExampleContainer extends Container {
     protected void PlayerInventory(InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 86 + i * 18));
+                this.addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 23 + j * 18, 87 + i * 18));
             }
         }
         PlayerHotbar(inventoryPlayer);
     }
     private void PlayerHotbar(InventoryPlayer inventoryPlayer) {
         for (int k = 0; k < 9; ++k) {
-            this.addSlotToContainer(new Slot(inventoryPlayer, k, 8 + k * 18, 144));
+            this.addSlotToContainer(new Slot(inventoryPlayer, k, 23 + k * 18, 145));
         }
     }
     protected void SyncValue() {

@@ -25,7 +25,7 @@ public class GuiRfMolecularOutput extends ExampleGuiContainer {
     public GuiRfMolecularOutput(InventoryPlayer inventory, TileRfMolecularOutput tileEntity, EntityPlayer player) {
         super(new ContainerRfMolecularOutput(inventory, tileEntity, player));
         this.tile = tileEntity;
-        setTexture("textures/gui/gui_molecular_output.png", 175, 167);
+        setTexture("textures/gui/gui_molecular_output.png", 205, 170);
         BarComponent barComponent = new BarComponent(this, 1, 17, 24, 30, 0, 14, 29, "textures/gui/gui_component.png");
         barComponent.setSideDirection("down");
         addBarComponent(barComponent);
