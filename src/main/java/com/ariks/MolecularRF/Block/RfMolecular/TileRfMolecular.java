@@ -122,12 +122,10 @@ public class TileRfMolecular extends TileExampleInventory implements ITickable {
         this.work = nbt.getBoolean("Work");
         this.storage.setCanReceiveEnergy(work);
     }
-
     @Override
     public @NotNull AxisAlignedBB getRenderBoundingBox() {
         return INFINITE_EXTENT_AABB;
     }
-
     @SuppressWarnings("unchecked")
     @Override
     public <T> T getCapability(@NotNull Capability<T> capability, EnumFacing facing) {

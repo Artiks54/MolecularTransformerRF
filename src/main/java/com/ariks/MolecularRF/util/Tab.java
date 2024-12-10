@@ -9,7 +9,6 @@ public class Tab extends CreativeTabs {
     public Tab(String string) {
         super(string);
     }
-
     @Override
     public @NotNull ItemStack getTabIconItem() {
         return new ItemStack(RegistryBlock.RF_Molecular);

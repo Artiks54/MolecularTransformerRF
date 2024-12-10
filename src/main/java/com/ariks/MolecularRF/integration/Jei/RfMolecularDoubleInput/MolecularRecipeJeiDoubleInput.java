@@ -19,6 +19,7 @@ public class MolecularRecipeJeiDoubleInput implements IRecipeWrapper {
     public MolecularRecipeJeiDoubleInput(MolecularRecipeDoubleInput recipes) {
         this.recipe = recipes;
     }
+    @SuppressWarnings("deprecation")
     @Override
     public void getIngredients(IIngredients ingredients) {
         ingredients.setInputs(ItemStack.class, getInputs1());

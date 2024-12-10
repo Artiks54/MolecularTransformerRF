@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = MolecularRF.MOD_ID, name = MolecularRF.MOD_NAME, useMetadata = true, acceptedMinecraftVersions = "[1.12]", version = MolecularRF.VERSION)
 public class MolecularRF {
 	public static Logger logger;
-	public static final String MOD_ID = "mrf", MOD_NAME = "MolecularTransformerRF", VERSION = "1.0";
+	public static final String MOD_ID = "mrf", MOD_NAME = "MolecularTransformerRF", VERSION = "1.1";
 	@Mod.Instance(MolecularRF.MOD_ID)
 	public static MolecularRF instance;
 	@SidedProxy(clientSide = "com.ariks.MolecularRF.network.ClientProxy", serverSide = "com.ariks.MolecularRF.network.CommonProxy")

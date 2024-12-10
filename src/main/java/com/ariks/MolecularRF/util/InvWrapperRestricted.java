@@ -8,10 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InvWrapperRestricted extends InvWrapper {
-
     private List<Integer> slotsAllowedInsert;
     private List<Integer> slotsAllowedExtract;
-
     public InvWrapperRestricted(ISidedInventory inv) {
         super(inv);
         slotsAllowedInsert = new ArrayList<>();
@@ -36,7 +34,7 @@ public class InvWrapperRestricted extends InvWrapper {
         return this.getSlotsExtract().contains(slot);
     }
     @Override
-    public @NotNull ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+    public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
         if (!canInsert(slot)) {
             return stack;
         }
@@ -50,4 +48,3 @@ public class InvWrapperRestricted extends InvWrapper {
         return super.extractItem(slot, amount, simulate);
     }
 }
-

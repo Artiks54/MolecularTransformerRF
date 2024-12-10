@@ -18,6 +18,7 @@ public class MolecularRecipeJei implements IRecipeWrapper {
     public MolecularRecipeJei(MolecularRecipe recipes) {
         this.recipe = recipes;
     }
+    @SuppressWarnings("deprecation")
     @Override
     public void getIngredients(IIngredients ingredients) {
         ingredients.setInputs(ItemStack.class, getInputs());

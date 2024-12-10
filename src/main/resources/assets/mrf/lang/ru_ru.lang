@@ -9,3 +9,4 @@ gui.text.tile_rf_molecular.rf.tick=RF Тик:
 tile.mrf_molecular_rf.name=§4Молекулярный преобразователь
 tile.mrf_molecular_rf_double_input.name=§aДвойной молекулярный преобразователь
 tile.mrf_molecular_rf_output.name=§1Двойной молекулярный преобразователь
+tile.mrf_molecular_core.name=§bМолекулярное ядро

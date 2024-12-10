@@ -6,7 +6,6 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import java.util.Objects;
 
 @SideOnly(Side.CLIENT)
 public class BarComponent {
@@ -16,7 +15,7 @@ public class BarComponent {
     private final int id;
     //Начала рисовки в гуи
     private final int startX,startY;
-    //Ширина и высота бара в текстуре
+    //Ширина и высота бара в файле текстуры
     private final int widthBar,heightBar;
     //Расположение бара в текстуре
     private final int TextureX,TextureY;
@@ -69,24 +68,24 @@ public class BarComponent {
         ResourceLocation texture = new ResourceLocation(MolecularRF.MOD_ID, textures);
         container.mc.getTextureManager().bindTexture(texture);
         //С право на лево
-        if (Objects.equals(SideDirection, "right")) {
+        if (SideDirection.equals("right")) {
             int drawWidth = (int) ((float) currentValue / maxValue * widthBar);
             int drawX = cordX + startX + widthBar - drawWidth; // Начинаем с правого края
             Gui.drawModalRectWithCustomSizedTexture(drawX, cordY + startY, TextureX + widthBar - drawWidth, TextureY, drawWidth, heightBar, 256, 256);
         }
-        //Слево на право
-        if (Objects.equals(SideDirection, "left")) {
+        //С лево на право
+        if (SideDirection.equals("left")) {
             int drawWidth = (int) ((float) currentValue / maxValue * widthBar);
             Gui.drawModalRectWithCustomSizedTexture(cordX + startX, cordY + startY, TextureX, TextureY, drawWidth, heightBar, 256, 256);
         }
         //Снизу в верх
-        if (Objects.equals(SideDirection, "up")) {
+        if (SideDirection.equals("up")) {
             int drawHeight = (int) ((float) currentValue / maxValue * heightBar);
             int drawY = cordY + startY + (heightBar - drawHeight);
             Gui.drawModalRectWithCustomSizedTexture(cordX + startX, drawY, TextureX, TextureY, widthBar, drawHeight, 256, 256);
         }
         //Сверху в низ
-        if (Objects.equals(SideDirection, "down")) {
+        if (SideDirection.equals("down")) {
             int drawHeight = (int) ((float) currentValue / maxValue * heightBar);
             int drawY = cordY + startY;
             Gui.drawModalRectWithCustomSizedTexture(cordX + startX, drawY, TextureX, TextureY, widthBar, drawHeight, 256, 256);

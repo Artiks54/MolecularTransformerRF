@@ -3,20 +3,17 @@
   "pattern": [
     "LHL",
     "LTL",
-    "HBH"
+    "HLH"
   ],
   "key": {
     "H": {
       "item": "minecraft:hopper"
     },
-    "B": {
-      "item": "minecraft:beacon"
-    },
     "L": {
       "item": "minecraft:lapis_block"
     },
     "T": {
-      "item": "mrf:mrf_molecular_rf"
+      "item": "mrf:mrf_molecular_core"
     }
   },
   "result": {

@@ -1,5 +1,6 @@
 package com.ariks.MolecularRF.Register;
 
+import com.ariks.MolecularRF.Block.Core.BlockCustomModelTile;
 import com.ariks.MolecularRF.Block.Core.BlockMolecularRf;
 import com.ariks.MolecularRF.MolecularRF;
 import net.minecraft.block.Block;
@@ -10,9 +11,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class RegistryBlock {
@@ -20,30 +18,19 @@ public class RegistryBlock {
     public static Block RF_Molecular = new BlockMolecularRf(modId +"molecular_rf",1);
     public static Block RF_Molecular_Double = new BlockMolecularRf(modId +"molecular_rf_double_input",2);
     public static Block RF_Molecular_Output = new BlockMolecularRf(modId +"molecular_rf_output",3);
-    public static final List<Block> BLOCKS = new ArrayList<>();
-    static {
-        Field[] fields = RegistryBlock.class.getDeclaredFields();
-        for (Field field : fields) {
-            try {
-                if (Block.class.isAssignableFrom(field.getType())) {
-                    Block block = (Block) field.get(null);
-                    BLOCKS.add(block);
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    public static Block Molecular_Core = new BlockCustomModelTile(modId + "molecular_core");
     public static void preInit() {
-        for (Block block : BLOCKS) {
-            setRegister(block);
-        }
+        setRegister(RF_Molecular);
+        setRegister(RF_Molecular_Double);
+        setRegister(RF_Molecular_Output);
+        setRegister(Molecular_Core);
     }
     @SideOnly(Side.CLIENT)
     public static void registerRender() {
-        for (Block block : BLOCKS) {
-            setRender(block);
-        }
+        setRender(RF_Molecular);
+        setRender(RF_Molecular_Double);
+        setRender(RF_Molecular_Output);
+        setRender(Molecular_Core);
     }
     private static void setRegister(Block block) {
         ForgeRegistries.BLOCKS.register(block);

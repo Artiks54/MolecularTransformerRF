@@ -1,23 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
+    "BRB",
     "RHR",
-    "RBR",
-    "RHR"
+    "BRB"
   ],
   "key": {
     "R": {
-      "item": "minecraft:redstone_block"
+      "item": "minecraft:diamond_block"
     },
     "B": {
-      "item": "mrf:mrf_molecular_core"
+      "item": "minecraft:nether_star"
     },
     "H": {
-      "item": "minecraft:hopper"
+      "item": "minecraft:ender_eye"
     }
   },
   "result": {
-    "item": "mrf:mrf_molecular_rf",
+    "item": "mrf:mrf_molecular_core",
     "count": 1
   }
 }

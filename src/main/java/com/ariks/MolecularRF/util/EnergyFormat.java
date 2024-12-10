@@ -1,22 +1,13 @@
 package com.ariks.MolecularRF.util;
 
 public class EnergyFormat {
-
+    private static final String[] SUFFIXES = {"", "K", "M", "B", "T", "Q", "QQ"};
     public static String formatNumber(long number) {
         if (number < 1000) {
             return String.valueOf(number);
-        } else if (number < 1_000_000) {
-            return String.format("%.1f K", number / 1000.0);
-        } else if (number < 1_000_000_000) {
-            return String.format("%.1f M", number / 1_000_000.0);
-        } else if (number < 1_000_000_000_000L) {
-            return String.format("%.1f B", number / 1_000_000_000.0);
-        } else if (number < 1_000_000_000_000_000L) {
-            return String.format("%.1f T", number / 1_000_000_000_000.0);
-        } else if (number < 1_000_000_000_000_000_000L) {
-            return String.format("%.1f Q", number / 1_000_000_000_000_000.0);
-        } else {
-            return String.format("%.1f QQ", number / 1_000_000_000_000_000_000.0);
         }
+        int magnitude = (int) (Math.log10(number) / 3);
+        double scaledNumber = number / Math.pow(1000, magnitude);
+        return String.format("%.1f %s", scaledNumber, SUFFIXES[magnitude]);
     }
 }

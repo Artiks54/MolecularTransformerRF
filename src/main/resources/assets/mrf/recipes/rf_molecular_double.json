@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "HBH",
+    "HEH",
     "ETE",
     "EHE"
   ],
@@ -9,14 +9,11 @@
     "H": {
       "item": "minecraft:hopper"
     },
-    "B": {
-      "item": "minecraft:beacon"
-    },
     "E": {
       "item": "minecraft:emerald_block"
     },
     "T": {
-      "item": "mrf:mrf_molecular_rf"
+      "item": "mrf:mrf_molecular_core"
     }
   },
   "result": {

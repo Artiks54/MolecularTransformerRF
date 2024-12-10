@@ -23,6 +23,7 @@ public class BlockCustomModelTile extends Block {
         this.setHardness(2.5F);
         this.setResistance(4.5f);
         this.setSoundType(SoundType.METAL);
+        this.setCreativeTab(MolecularRF.molecularTransformerTab);
         this.setHarvestLevel("pickaxe", 2);
     }
     @Override

@@ -9,3 +9,4 @@ gui.text.tile_rf_molecular.rf.tick=RF Tick:
 tile.mrf_molecular_rf.name=§4Molecular transformer
 tile.mrf_molecular_rf_double_input.name=§aDouble molecular transformer
 tile.mrf_molecular_rf_output.name=§1Double molecular transformer
+tile.mrf_molecular_core.name=§bMolecular core
