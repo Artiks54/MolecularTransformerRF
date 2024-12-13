@@ -5,8 +5,8 @@ molecular.addRecipeMolecularInput(input1, input2, output, energy);
 molecular.addRecipeMolecularOutput(input, output1, output2, energy);
 
 //EXAMPLE:
-//TileRfMolecular.addRecipe(<minecraft:stone>*1, <minecraft:diamond_block>*2, 1000000000);
-//Input : <minecraft:stone>*1 -> stone, count 1;
+//molecular.addRecipeMolecular(<minecraft:stone>, <minecraft:diamond_block>*2, 1000000000);
+//Input : <minecraft:stone>
 //Output : <minecraft:diamond_block>*2 -> Diamond_block, Count 2;
 //Energy : 1000000000 -> 1 billion
 //Maximum energy MAX java Long value
