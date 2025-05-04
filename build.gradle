@@ -23,6 +23,8 @@ apply plugin: "net.kyori.blossom"
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
+//
+
 version = modVersion
 group = modGroup
 archivesBaseName = modBaseName
